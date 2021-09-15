@@ -17,6 +17,7 @@ function calcRangeTotal(begin, end) {
     return total;
 }
 
+console.log('====================');
 //함수를 호출할 때 함수에 전달하는 값
 //3, 8을 인수(argument)라고 부름
 //3과8을 받아주는 parameter

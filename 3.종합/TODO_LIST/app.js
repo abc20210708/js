@@ -127,6 +127,63 @@ function changCheckState($label) {
 }
 
 
+// 할 일 삭제 처리 함수
+function removeToDoData($li) {
+
+    //1.화면처리 : ul에서 작세대상 li를 제거
+    const $ul = document.querySelector('.todo-list');
+    $ul.removeChild($li);
+
+    //2. 배열 데이터 삭제처리
+    const delIdx = findIndexById(+$li.dataset.id);
+    todos.splice(delIdx, 1);
+
+    // console.log(todos);
+}
+
+//수정모드 진입 처리
+function enterModifyMode($modSpan) {
+
+    //버튼 모양을 교체 (클래스 교체)
+    $modSpan.classList.replace('lnr-undo','lnr-checkmark-circle');
+
+    //텍스트 span을 input:text로 교체
+    //span 태그 찾기
+    const $textSpan = $modSpan.parentNode.previousElementSibling.lastElementChild;
+    console.log($textSpan);
+
+    //input 태그 만들기
+    const $modInput = document.createElement('input');
+    $modInput.setAttribute('type', 'text');
+    $modInput.setAttribute('value', $textSpan.textContent);
+    $modInput.classList.add('modify-input');
+
+    //태그 교체
+    const $label = $textSpan.parentNode;
+    $label.replaceChild($modInput, $textSpan);
+}
+
+
+//할 일 수정 완료 처리
+function modifyToDoData($modSpan){ 
+
+
+    //1. 버튼 모양을 원래대로 되돌림
+    //console.log($modSpan);
+    $modSpan.classList.replace('lnr-checkmark-circle','lnr-undo');
+    //2. input text를 다시 span으로 교체
+    const $label = $modSpan.parentNode.previousElementSibling;
+    const $modInpu = $label.lastElementChild
+   const $modInput = document.createElement('input');
+   const $label = $modInput.parentNode;
+   $label.replaceChild($modSpan, $modInput);
+    
+    //3. 배열 데이터도 수정
+    
+
+    console.log(todos);
+    
+}
 
 //==========메인 실행=========//
 (function () {
@@ -150,5 +207,32 @@ function changCheckState($label) {
         //console.log(e.target.parentNode);
         changCheckState(e.target.parentNode);
     });
+
+    //할 일 삭제버튼 클릭 이벤트 
+    $toDoList.addEventListener('click', e => {
+        
+        if(!e.target.matches('.remove span')) return;
+        
+        // console.log('삭제버튼 클릭됨!');
+        // console.log(e.target);
+
+        removeToDoData(e.target.parentNode.parentNode);
+    });
+
+    //할 일 수정 클릭 이벤트
+    $toDoList.addEventListener('click', e => {
+
+        if (e.target.matches('.modify .lnr-undo')) {
+            //수정 모드 진입처리
+            console.log('수정모드진입버튼클릭!');
+            enterModifyMode(e.target);
+        } else if (e.target.matches('.modify .lnr-checkmark-circle')) { 
+            //수정 완료료 처리
+            modifyToDoData(e.target);
+        } else { //둘 다 아닌 이상한 거 눌렀으면
+            return;
+        }
+
+    })
 
 })();
