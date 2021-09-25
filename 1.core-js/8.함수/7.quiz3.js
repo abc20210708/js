@@ -10,28 +10,32 @@
 "키 -> 178.4cm, 체중-> 78.2kg의 체질량지수는: 24.57입니다"
 */
 
-function calcBMI(height, weight) {
-    
-    var m = height / 100;
-    var kg = weight;
-    //bmi 공식
-    var bmi = kg / (m * m);
+
+
+function CalcBMI(height, weight) {
+
+    let m = height/100;
+    let kg = weight;
+
+    //bmi
+    let bmi = kg / (m * m);
 
     if (bmi >= 25.0) console.log('당신은 과체중입니다.');
     else if (bmi <= 18.5) console.log('당신은 저체중입니다.');
     else console.log('당신은 정상체중입니다.');
 
-            //3자리
-    return round(bmi, 3);
-
-    //var prettier = round(bmi, 2);
-    //return prettier;
-}
+    return bmi;
+}//end function
 
 //원하는 자릿수만큼 반올림해주는 함수
-function round (number, pos) {
-    return Math.round(bmi * 10 ** pos) / 10 ** pos;
+function round(number, pos) {
+    return Math.round(number * 10 ** pos) / 10 ** pos;
 }
+
+
+let h = 174, w = 62;
+let myBmi = CalcBMI(h,w);
+console.log(`키->${h}cm, 체중 ->${w}kg의 체질량지수는 ${round(myBmi,3)}입니다.`);
 
 var h = 178.4, w = 78.2;
 var myBmi = calcBMI(h, w);
