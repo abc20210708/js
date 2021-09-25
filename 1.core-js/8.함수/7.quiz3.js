@@ -33,10 +33,7 @@ function round(number, pos) {
 }
 
 
-let h = 174, w = 62;
+let h = 178.4, w = 78.2;
 let myBmi = CalcBMI(h,w);
 console.log(`키->${h}cm, 체중 ->${w}kg의 체질량지수는 ${round(myBmi,3)}입니다.`);
 
-var h = 178.4, w = 78.2;
-var myBmi = calcBMI(h, w);
-console.log(`키 -> ${h}cm, 체중 -> ${w}kg의 체질량지수는 ${myBmi}입니다.`);
